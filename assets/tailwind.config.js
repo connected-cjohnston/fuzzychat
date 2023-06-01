@@ -17,6 +17,10 @@ module.exports = {
         brand: "#FD4F00",
       }
     },
+    fontFamily: {
+      'raleway': ['Raleway', 'sans-serif'],
+      'inter': ['Inter', 'sans-serif']
+    }
   },
   plugins: [
     require("@tailwindcss/forms"),
