@@ -1,5 +1,9 @@
 # Fuzzychat
 
+A chat application built to learn Elixir, Phoenix, and LiveView. Basically trying to recreate slack or discord in LiveView.
+
+## Phoenix
+
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
