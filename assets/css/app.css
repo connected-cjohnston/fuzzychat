@@ -8,5 +8,13 @@
 /* This file is for your main application CSS */
 
 h1 {
-  @apply text-5xl text-zinc-500 font-bold font-inter
+  @apply text-5xl text-zinc-500 font-semibold font-inter pb-5
+}
+
+h2 {
+  @apply text-xl text-zinc-600 font-inter font-medium pb-1
+}
+
+.selected {
+  @apply bg-gray-100
 }

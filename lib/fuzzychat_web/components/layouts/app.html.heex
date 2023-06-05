@@ -1,6 +1,13 @@
-<header class="px-4 sm:px-6 lg:px-8"></header>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-2xl">
+<header>
+  <div class="p-4 text-2xl">
+    FuzzyChat
+    <div class="float-right">
+      <Heroicons.LiveView.icon name="user-circle" type="solid" class="h-6 w-6" />
+    </div>
+  </div>
+</header>
+<main>
+  <div>
     <.flash_group flash={@flash} />
     <%= @inner_content %>
   </div>
