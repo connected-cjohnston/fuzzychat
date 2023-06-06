@@ -29,7 +29,9 @@
       />
     </form>
     <ul :for={room <- @rooms}>
-      <li class={"room-label #{if room == @selected_room, do: "selected"}"}><%= room %></li>
+      <li class={"room-label #{if room.name == @selected_room, do: "selected"}"}>
+        <%= room.name %>
+      </li>
     </ul>
   </div>
   <div class="col-span-6 p-4 bg-gray-100 rounded-lg mr-4">
