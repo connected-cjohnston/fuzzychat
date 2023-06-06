@@ -29,17 +29,20 @@
       />
     </form>
     <ul :for={room <- @rooms}>
-      <li class={"room-label #{if room.name == @selected_room, do: "selected"}"}>
+      <li
+        class={"room-label #{if room.name == @selected_room.name, do: "selected"}"}
+        key={room.id}
+      >
         <%= room.name %>
       </li>
     </ul>
   </div>
   <div class="col-span-6 p-4 bg-gray-100 rounded-lg mr-4">
-    <div class="align-text-top">
+    <div class="">
       <div :for={message <- @messages}>
         <p><%= message %></p>
       </div>
-      <div class="mt-4">
+      <div class="mt-4 align-text-bottom">
         <form phx-submit="send-message">
           <input
             type="text"

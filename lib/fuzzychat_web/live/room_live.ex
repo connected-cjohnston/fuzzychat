@@ -7,13 +7,12 @@ defmodule FuzzychatWeb.RoomLive do
   use FuzzychatWeb, :live_view
 
   alias Fuzzychat.Rooms
-  alias Fuzzychat.Rooms.Room
+  # alias Fuzzychat.Rooms.Room
 
   def mount(_params, _session, socket) do
     rooms = Rooms.list_rooms() |> Enum.sort(&(&1.name <= &2.name))
-    Logger.info(rooms: rooms)
+    selected_room = Enum.find(rooms, fn room -> room.name == "General" end)
     messages = []
-    selected_room = "General"
 
     {:ok,
      assign(socket,
