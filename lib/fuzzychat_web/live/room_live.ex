@@ -7,12 +7,13 @@ defmodule FuzzychatWeb.RoomLive do
   use FuzzychatWeb, :live_view
 
   alias Fuzzychat.Rooms
+  alias Fuzzychat.Messages
   # alias Fuzzychat.Rooms.Room
 
   def mount(_params, _session, socket) do
     rooms = Rooms.list_rooms() |> Enum.sort(&(&1.name <= &2.name))
     selected_room = Enum.find(rooms, fn room -> room.name == "General" end)
-    messages = []
+    messages = Messages.list_messages()
 
     {:ok,
      assign(socket,
@@ -24,7 +25,10 @@ defmodule FuzzychatWeb.RoomLive do
   end
 
   def handle_event("send-message", %{"message" => message}, socket) do
-    {:noreply, assign(socket, :messages, socket.assigns.messages ++ [message])}
+    {:ok, new_message} =
+      Messages.create_message(%{message: message, room_id: socket.assigns.selected_room.id})
+
+    {:noreply, assign(socket, :messages, socket.assigns.messages ++ [new_message])}
   end
 
   def handle_event("new-room", _, socket) do

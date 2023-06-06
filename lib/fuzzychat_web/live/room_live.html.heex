@@ -40,7 +40,7 @@
   <div class="col-span-6 p-4 bg-gray-100 rounded-lg mr-4">
     <div class="">
       <div :for={message <- @messages}>
-        <p><%= message %></p>
+        <p><%= message.message %></p>
       </div>
       <div class="mt-4 align-text-bottom">
         <form phx-submit="send-message">
@@ -48,6 +48,7 @@
             type="text"
             name="message"
             placeholder="Enter message here..."
+            autocomplete="off"
             class="w-11/12 rounded-lg border-gray-300 focus:border-slate-400 focus:ring-slate-400 focus:ring-opacity-50 align-middle"
           />
           <button class="rounded-lg bg-slate-200 py-1 p-3 hover:bg-slate-300 align-middle">
