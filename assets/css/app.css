@@ -16,5 +16,9 @@ h2 {
 }
 
 .selected {
-  @apply bg-gray-100
+  @apply bg-slate-200 rounded-lg
+}
+
+.room-label {
+  @apply py-1 px-4 mx-2 my-1 hover:bg-slate-500 rounded-lg
 }
