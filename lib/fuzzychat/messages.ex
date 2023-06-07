@@ -8,6 +8,14 @@ defmodule Fuzzychat.Messages do
 
   alias Fuzzychat.Messages.Message
 
+  def subscribe do
+    Phoenix.PubSub.subscribe(Fuzzychat.PubSub, "messages")
+  end
+
+  def broadcast(message) do
+    Phoenix.PubSub.broadcast(Fuzzychat.PubSub, "messages", message)
+  end
+
   @doc """
   Returns the list of messages sorted by inserted_at date.
 
@@ -50,9 +58,14 @@ defmodule Fuzzychat.Messages do
 
   """
   def create_message(attrs \\ %{}) do
-    %Message{}
-    |> Message.changeset(attrs)
-    |> Repo.insert()
+    {:ok, message} =
+      %Message{}
+      |> Message.changeset(attrs)
+      |> Repo.insert()
+
+    broadcast({:message_created, message})
+
+    {:ok, message}
   end
 
   @doc """

@@ -11,6 +11,10 @@ defmodule FuzzychatWeb.RoomLive do
   # alias Fuzzychat.Rooms.Room
 
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Messages.subscribe()
+    end
+
     rooms = Rooms.list_rooms() |> Enum.sort(&(&1.name <= &2.name))
     selected_room = Enum.find(rooms, fn room -> room.name == "General" end)
     messages = Messages.list_messages()
@@ -43,5 +47,9 @@ defmodule FuzzychatWeb.RoomLive do
     rooms = Rooms.list_rooms() |> Enum.sort(&(&1.name <= &2.name))
 
     {:noreply, assign(socket, rooms: rooms, new_room: false, selected_room: room_name)}
+  end
+
+  def handle_info({:message_created, message}, socket) do
+    {:noreply, stream_insert(socket, :messages, message)}
   end
 end
