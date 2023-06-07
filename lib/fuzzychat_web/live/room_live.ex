@@ -15,20 +15,22 @@ defmodule FuzzychatWeb.RoomLive do
     selected_room = Enum.find(rooms, fn room -> room.name == "General" end)
     messages = Messages.list_messages()
 
-    {:ok,
-     assign(socket,
-       rooms: rooms,
-       messages: messages,
-       selected_room: selected_room,
-       new_room: false
-     )}
+    socket =
+      socket
+      |> stream(:messages, messages)
+      |> assign(:rooms, rooms)
+      |> assign(:selected_room, selected_room)
+      |> assign(:new_room, false)
+
+    {:ok, socket}
   end
 
   def handle_event("send-message", %{"message" => message}, socket) do
     {:ok, new_message} =
       Messages.create_message(%{message: message, room_id: socket.assigns.selected_room.id})
 
-    {:noreply, assign(socket, :messages, socket.assigns.messages ++ [new_message])}
+    socket = stream_insert(socket, :messages, new_message)
+    {:noreply, socket}
   end
 
   def handle_event("new-room", _, socket) do

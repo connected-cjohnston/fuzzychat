@@ -9,7 +9,7 @@ defmodule Fuzzychat.Messages do
   alias Fuzzychat.Messages.Message
 
   @doc """
-  Returns the list of messages.
+  Returns the list of messages sorted by inserted_at date.
 
   ## Examples
 
@@ -18,7 +18,7 @@ defmodule Fuzzychat.Messages do
 
   """
   def list_messages do
-    Repo.all(Message)
+    Repo.all(from m in Message, order_by: [asc: m.inserted_at])
   end
 
   @doc """

@@ -22,3 +22,7 @@ h2 {
 .room-label {
   @apply py-1 px-4 mx-2 my-1 hover:bg-slate-500 rounded-lg
 }
+
+.message {
+  @apply p-1 my-2
+}

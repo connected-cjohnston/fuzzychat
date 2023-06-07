@@ -38,24 +38,27 @@
     </ul>
   </div>
   <div class="col-span-6 p-4 bg-gray-100 rounded-lg mr-4">
-    <div class="">
-      <div :for={message <- @messages}>
-        <p><%= message.message %></p>
+    <div id="messages" phx-update="stream">
+      <div :for={{message_id, message} <- @streams.messages} class="message" id={message_id}>
+        <p>
+          <span class="text-slate-500"><%= message.inserted_at %> —</span> <%= message.message %>
+        </p>
       </div>
-      <div class="mt-4 align-text-bottom">
-        <form phx-submit="send-message">
-          <input
-            type="text"
-            name="message"
-            placeholder="Enter message here..."
-            autocomplete="off"
-            class="w-11/12 rounded-lg border-gray-300 focus:border-slate-400 focus:ring-slate-400 focus:ring-opacity-50 align-middle"
-          />
-          <button class="rounded-lg bg-slate-200 py-1 p-3 hover:bg-slate-300 align-middle">
-            <Heroicons.LiveView.icon name="paper-airplane" type="solid" class="h-6 w-6" />
-          </button>
-        </form>
-      </div>
+    </div>
+
+    <div class="mt-4 align-text-bottom">
+      <form phx-submit="send-message">
+        <input
+          type="text"
+          name="message"
+          placeholder="Enter message here..."
+          autocomplete="off"
+          class="w-11/12 rounded-lg border-gray-300 focus:border-slate-400 focus:ring-slate-400 focus:ring-opacity-50 align-middle"
+        />
+        <button class="rounded-lg bg-slate-200 py-1 p-3 hover:bg-slate-300 align-middle">
+          <Heroicons.LiveView.icon name="paper-airplane" type="solid" class="h-6 w-6" />
+        </button>
+      </form>
     </div>
   </div>
 </div>
