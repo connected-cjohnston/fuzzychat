@@ -29,24 +29,25 @@
       />
     </form>
     <ul :for={room <- @rooms}>
-      <li
-        class={"room-label #{if room.name == @selected_room.name, do: "selected"}"}
-        key={room.id}
-      >
-        <%= room.name %>
+      <li class={"room-label #{if room.name == @selected_room.name, do: "selected"}"}>
+        <.link href={~p"/#{room.id}"}>
+          <%= room.name %>
+        </.link>
       </li>
     </ul>
   </div>
   <div class="col-span-6 p-4 bg-gray-100 rounded-lg mr-4">
-    <div id="messages" phx-update="stream">
-      <div :for={{message_id, message} <- @streams.messages} class="message" id={message_id}>
-        <p>
-          <span class="text-slate-500"><%= message.inserted_at %> —</span>
-          <%= message.message %>
-          <span class="text-slate-300 float-right hover:text-slate-400">
-            <.icon name="hero-ellipsis-vertical-solid" />
-          </span>
-        </p>
+    <div class="h-96 overflow-auto">
+      <div id="messages" phx-update="stream">
+        <div :for={{message_id, message} <- @streams.messages} class="message" id={message_id}>
+          <p>
+            <span class="text-slate-500"><%= message.inserted_at %> —</span>
+            <%= message.message %>
+            <span class="text-slate-300 float-right hover:text-slate-400">
+              <.icon name="hero-ellipsis-vertical-solid" />
+            </span>
+          </p>
+        </div>
       </div>
     </div>
 

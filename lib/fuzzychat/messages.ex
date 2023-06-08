@@ -30,6 +30,19 @@ defmodule Fuzzychat.Messages do
   end
 
   @doc """
+  Returns the list of messages for a specific room sorted by inserted_at date
+
+  ### Examples
+
+      iex> list_messages_for_room(1)
+      [%Message{}, ...]
+
+  """
+  def list_messages_for_room(room_id) do
+    Repo.all(from m in Message, where: m.room_id == ^room_id, order_by: [asc: m.inserted_at])
+  end
+
+  @doc """
   Gets a single message.
 
   Raises `Ecto.NoResultsError` if the Message does not exist.

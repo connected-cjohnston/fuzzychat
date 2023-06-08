@@ -21,6 +21,7 @@ defmodule FuzzychatWeb.Router do
     pipe_through :browser
 
     live "/", RoomLive
+    live "/:room_id", RoomLive
   end
 
   # Other scopes may use custom stacks.
