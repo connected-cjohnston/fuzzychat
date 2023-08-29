@@ -6,6 +6,8 @@ defmodule FuzzychatWeb.RoomLive do
 
   use FuzzychatWeb, :live_view
 
+  on_mount {FuzzychatWeb.UserAuth, :ensure_authenticated}
+
   alias Fuzzychat.Rooms
   alias Fuzzychat.Messages
   # alias Fuzzychat.Rooms.Room
@@ -50,7 +52,11 @@ defmodule FuzzychatWeb.RoomLive do
 
   def handle_event("send-message", %{"message" => message}, socket) do
     {:ok, new_message} =
-      Messages.create_message(%{message: message, room_id: socket.assigns.selected_room.id})
+      Messages.create_message(%{
+        message: message,
+        room_id: socket.assigns.selected_room.id,
+        user_id: socket.assigns.current_user.id
+      })
 
     socket = stream_insert(socket, :messages, new_message)
     {:noreply, socket}

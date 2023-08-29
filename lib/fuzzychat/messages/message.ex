@@ -2,12 +2,14 @@ defmodule Fuzzychat.Messages.Message do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Hex.API.User
   alias Fuzzychat.Rooms.Room
+  alias Fuzzychat.Accounts.User
 
   schema "messages" do
     field :message, :string
-    field :user_id, :integer
     belongs_to :room, Room
+    belongs_to :user, User
 
     timestamps()
   end
@@ -16,6 +18,7 @@ defmodule Fuzzychat.Messages.Message do
   def changeset(message, attrs) do
     message
     |> cast(attrs, [:message, :room_id, :user_id])
-    |> validate_required([:message, :room_id])
+    |> assoc_constraint(:room)
+    |> validate_required([:message, :room_id, :user_id])
   end
 end

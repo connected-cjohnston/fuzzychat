@@ -7,6 +7,13 @@
 
 /* This file is for your main application CSS */
 
+/*
+ * #404258
+ * #474E68
+ * #50577A
+ * #6B728E
+ */
+
 h1 {
   @apply text-5xl text-zinc-500 font-semibold font-inter pb-5
 }
@@ -20,7 +27,7 @@ h2 {
 }
 
 .room-label {
-  @apply py-1 px-4 mx-2 my-1 hover:bg-slate-500 rounded-lg cursor-pointer
+  @apply py-1 px-4 mx-2 my-1 hover: bg-slate-500 rounded-lg cursor-pointer
 }
 
 .message {
