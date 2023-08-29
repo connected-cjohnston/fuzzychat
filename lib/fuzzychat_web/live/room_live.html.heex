@@ -41,7 +41,7 @@
       <div id="messages" phx-update="stream">
         <div :for={{message_id, message} <- @streams.messages} class="message" id={message_id}>
           <p>
-            <.icon name="hero-user-solid" class="h-8 w-8" /> User email here...
+            <.icon name="hero-user-solid" class="h-8 w-8" /> <%= message.user.email %>
             <span class="text-slate-500">
               <%= Calendar.strftime(message.inserted_at, "%a, %b %-d %Y %-I:%M%P GMT") %>
             </span>

@@ -39,7 +39,13 @@ defmodule Fuzzychat.Messages do
 
   """
   def list_messages_for_room(room_id) do
-    Repo.all(from m in Message, where: m.room_id == ^room_id, order_by: [asc: m.inserted_at])
+    Repo.all(
+      from m in Message,
+        join: u in assoc(m, :user),
+        where: m.room_id == ^room_id,
+        order_by: [asc: m.inserted_at],
+        preload: [user: u]
+    )
   end
 
   @doc """

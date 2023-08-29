@@ -9,7 +9,7 @@ defmodule Fuzzychat.Rooms do
   alias Fuzzychat.Rooms.Room
 
   @doc """
-  Returns the list of rooms.
+  Returns the list of rooms ordered by name
 
   ## Examples
 
@@ -18,7 +18,7 @@ defmodule Fuzzychat.Rooms do
 
   """
   def list_rooms do
-    Repo.all(Room)
+    Repo.all(from r in Room, order_by: [r.name])
   end
 
   @doc """
