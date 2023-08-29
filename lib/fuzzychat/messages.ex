@@ -82,6 +82,7 @@ defmodule Fuzzychat.Messages do
       |> Message.changeset(attrs)
       |> Repo.insert()
 
+    message = Repo.preload(message, :user)
     broadcast({:message_created, message})
 
     {:ok, message}
